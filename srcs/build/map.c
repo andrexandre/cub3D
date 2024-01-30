@@ -1,17 +1,6 @@
 
 #include "cub3d.h"
 
-void	check_map_extension(char *map_path)
-{
-	char	*extension;
-
-	extension = ft_strchr(map_path, '.');
-	if (extension == NULL)
-		error_msg("Map extension invalid", NULL);
-	if (ft_strcmp(extension, ".cub") != 0)
-		error_msg("Map extension invalid", NULL);
-}
-
 bool	is_map(char *line)
 {
 	int	i;
@@ -19,7 +8,6 @@ bool	is_map(char *line)
 	i = 0;
 	while (line[i])
 	{
-        
 		if (!ft_strchr("01NSEW\t\n ", line[i]) || (i == 0 && line[i] == '\n'))
 			return (false);
 		i++;
@@ -27,20 +15,31 @@ bool	is_map(char *line)
 	return (true);
 }
 
-char *rm_path(char *line)
+void	read_elements(char *line, t_game *game)
 {
-    char *result;
-    char **sp;
-    size_t i;
-    size_t idxn;
+	char	*result;
+	char	**sp;
+	size_t	i;
+	size_t	idxn;
 
-    sp = ft_split(line, ' ');
-    i = ft_strlen_matrix(sp);
-    result = ft_strdup(sp[i - 1]);
-    idxn = ft_strlen(result);
-    result[idxn - 1] = '\0';
-    ft_cleanup_strs(sp);
-    return(result);
+	sp = ft_split(line, ' ');
+	i = ft_strlen_matrix(sp);
+	result = ft_strdup(sp[i - 1]);
+	idxn = ft_strlen(result);
+	result[idxn - 1] = '\0';
+	if (!ft_strcmp(sp[0], "NO"))
+		game->file->path_NO = result;
+	else if (!ft_strcmp(sp[0], "SO"))
+		game->file->path_SO = result;
+	else if (!ft_strcmp(sp[0], "WE"))
+		game->file->path_WE = result;
+	else if (!ft_strcmp(sp[0], "EA"))
+		game->file->path_EA = result;
+	else if (!ft_strcmp(sp[0], "F"))
+		game->file->color_floor = result;
+	else if (!ft_strcmp(sp[0], "C"))
+		game->file->color_ceiling = result;
+	ft_cleanup_strs(sp);
 }
 
 void	read_map(int fd, t_game *game)
@@ -57,52 +56,19 @@ void	read_map(int fd, t_game *game)
 		if (is_map(line))
 			ft_lstadd_back(&game->file->map_lst, ft_lstnew(line));
 		else
-		{
-			if (!ft_strncmp(line, "NO", 2))
-				game->file->path_NO = rm_path(line);
-			else if (!ft_strncmp(line, "SO", 2))
-				game->file->path_SO = rm_path(line);
-			else if (!ft_strncmp(line, "WE", 2))
-				game->file->path_WE = rm_path(line);
-			else if (!ft_strncmp(line, "EA", 2))
-				game->file->path_EA = rm_path(line);
-			else if (!ft_strncmp(line, "F", 1))
-				game->file->color_floor = rm_path(line);
-			else if (!ft_strncmp(line, "C", 1))
-				game->file->color_ceiling = rm_path(line);
-		}
-	}
-}
-
-void	convert_lst_to_char(t_game *game)
-{
-	t_list	*lst;
-	int		i;
-
-	lst = game->file->map_lst;
-	i = 0;
-	game->file->map = ft_calloc(ft_lstsize(lst) + 1, sizeof(char *));
-	if (!game->file->map)
-		error_msg("Error: Memory game->file->map[][]", game);
-	while (lst)
-	{
-		game->file->map[i] = ft_strdup(lst->content);
-		if (!game->file->map[i])
-			exit(EXIT_FAILURE);
-		i++;
-		lst = lst->next;
+			read_elements(line, game);
 	}
 }
 
 void	build_map(char *map_path, t_game *game)
 {
-	int fd;
+	int	fd;
 
 	check_map_extension(map_path);
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		error_msg("Map not found", NULL);
 	read_map(fd, game);
-    convert_lst_to_char(game);
+	game->file->map = convert_lst_to_char(game->file->map_lst);
 	close(fd);
 }
