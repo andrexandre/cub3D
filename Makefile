@@ -17,17 +17,21 @@ MLX_DIR = ../mlx
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
 MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
 
-OPTFLAGS    =   -O3 -march=native -ffast-math -funsafe-math-optimizations -ffinite-math-only
+OPTFLAGS    =  -march=native -ffast-math -funsafe-math-optimizations -ffinite-math-only
 
 DIR_LIBFT = srcs/libft
 INCLUDE_LIB = $(DIR_LIBFT)/include
 LIB = $(DIR_LIBFT)/libft.a
-CFLAGS = -I$(INCLUDES) -I$(INCLUDE_LIB) -I $(MLX_DIR) -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -I$(INCLUDES) -I$(INCLUDE_LIB) -I $(MLX_DIR) -g #-Wall -Wextra -Werror -fsanitize=address
 
 SRCDIR	= srcs
 OBJDIR	= objs
 
 SRC =		cub3d.c\
+			build/game.c\
+			build/map.c\
+			utils/msg.c\
+			utils/clean.c
 
 SRC		:= $(addprefix srcs/,$(SRC))
 
