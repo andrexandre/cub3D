@@ -53,7 +53,11 @@ void			build_map(char *map_path, t_game *game);
 
 // msg
 void			error_msg(char *message, t_game *game);
-void    ft_cleanup_strs(char **strs);
+void			ft_cleanup_strs(char **strs);
+char			**convert_lst_to_char(t_list *lst);
 
+// checker
+void			check_map_extension(char *map_path);
+void check_map(t_game *game);
 
 #endif
