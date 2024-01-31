@@ -45,6 +45,7 @@ void	read_elements(char *line, t_game *game)
 void	read_map(int fd, t_game *game)
 {
 	char	*line;
+	bool map;
 
 	game->file = ft_calloc(sizeof(t_file), 1);
 	line = NULL;
@@ -53,8 +54,11 @@ void	read_map(int fd, t_game *game)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (is_map(line))
+		if (is_map(line) || map)
+		{
 			ft_lstadd_back(&game->file->map_lst, ft_lstnew(line));
+			map = true;
+		}
 		else
 			read_elements(line, game);
 	}
