@@ -10,6 +10,10 @@
 		"unistd.h": "c",
 		"get_next_line.h": "c",
 		"keysym.h": "c",
-		"cub3d.h": "c"
+		"cub3d.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"utility": "c"
 	}
 }

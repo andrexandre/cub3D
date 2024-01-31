@@ -69,6 +69,7 @@ void	build_map(char *map_path, t_game *game)
 	if (fd == -1)
 		error_msg("Map not found", NULL);
 	read_map(fd, game);
-	game->file->map = convert_lst_to_char(game->file->map_lst);
+	game->map = convert_lst_to_char(game->file->map_lst);
+	game->map_checker = convert_lst_to_char(game->file->map_lst);
 	close(fd);
 }
