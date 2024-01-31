@@ -18,7 +18,6 @@
 
 typedef struct s_file
 {
-	char		**map;
 	t_list		*map_lst;
 	char		*path_NO;
 	char		*path_SO;
@@ -45,6 +44,8 @@ typedef struct s_game
 	void		*window;
 	t_file		*file;
 	t_buffer	image_buffer;
+	char		**map;
+	char		**map_checker;
 }				t_game;
 
 // build_structure
