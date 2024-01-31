@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   floodfill.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 19:31:31 by jealves-          #+#    #+#             */
+/*   Updated: 2024/01/31 19:31:32 by jealves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	fill(int y, int x, char **map, int size_y)
@@ -8,11 +20,10 @@ void	fill(int y, int x, char **map, int size_y)
 	if (map[y][x] == ' ' || map[y][x] == '1' || map[y][x] == 'I'
 		|| map[y][x] == 'V' || y < 0 || x < 0 || y >= size_y || x >= size_x)
 		return ;
-	if (vaild_map_char(map[y + 1][x - 1]) && vaild_map_char(map[y][x - 1])
-		&& vaild_map_char(map[y - 1][x - 1]) && vaild_map_char(map[y + 1][x
-			+ 1]) && vaild_map_char(map[y][x + 1]) && vaild_map_char(map[y
-			- 1][x + 1]) && vaild_map_char(map[y + 1][x])
-		&& vaild_map_char(map[y - 1][x]))
+	if (is_map_char(map[y + 1][x - 1]) && is_map_char(map[y][x - 1])
+		&& is_map_char(map[y - 1][x - 1]) && is_map_char(map[y + 1][x + 1])
+		&& is_map_char(map[y][x + 1]) && is_map_char(map[y - 1][x + 1])
+		&& is_map_char(map[y + 1][x]) && is_map_char(map[y - 1][x]))
 		map[y][x] = 'V';
 	else
 		map[y][x] = 'I';
@@ -22,7 +33,7 @@ void	fill(int y, int x, char **map, int size_y)
 	fill(y, x - 1, map, size_y);
 }
 
-void	check_floodfill(char **map, t_game *game)
+void	check_floodfill(char **map)
 {
 	int	x;
 	int	size_x;
@@ -38,16 +49,14 @@ void	check_floodfill(char **map, t_game *game)
 		while (x < size_x)
 		{
 			if (map[y][x] == 'I')
-			{
-				error_msg("erro estrutura invalida", game);
-			}
+				error_msg("Invalid map structure");
 			x++;
 		}
 		y++;
 	}
 }
 
-void	floodfill(char **map, t_game *game)
+void	floodfill(char **map)
 {
 	int	x;
 	int	size_x;
@@ -63,12 +72,10 @@ void	floodfill(char **map, t_game *game)
 		while (x < size_x)
 		{
 			if (map[y][x] == '0')
-			{
 				fill(y, x, map, size_y);
-			}
 			x++;
 		}
 		y++;
 	}
-	check_floodfill(map, game);
+	check_floodfill(map);
 }

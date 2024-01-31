@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 19:31:17 by jealves-          #+#    #+#             */
+/*   Updated: 2024/01/31 19:31:18 by jealves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void	check_first_last_line(char **map, t_game *game)
+void	check_first_last_line(char **map)
 {
 	int	x;
 	int	y;
@@ -9,7 +21,7 @@ void	check_first_last_line(char **map, t_game *game)
 	while (map[0][x])
 	{
 		if (map[0][x] != '1' && map[0][x] != ' ' && map[0][x] != '\n')
-			error_msg("erro primeira linha", game);
+			error_msg("erro primeira linha");
 		x++;
 	}
 	x = 0;
@@ -17,12 +29,12 @@ void	check_first_last_line(char **map, t_game *game)
 	while (map[y][x])
 	{
 		if (map[y][x] != '1' && map[y][x] != ' ' && map[y][x] != '\n')
-			error_msg("erro ultima linha", game);
+			error_msg("erro ultima linha");
 		x++;
 	}
 }
 
-void	check_first_column(char **map, t_game *game, int y)
+void	check_first_column(char **map, int y)
 {
 	int	x;
 
@@ -35,12 +47,12 @@ void	check_first_column(char **map, t_game *game, int y)
 			continue ;
 		}
 		if (map[y][x] != '1')
-			error_msg("erro primeira coluna", game);
+			error_msg("erro primeira coluna");
 		break ;
 	}
 }
 
-void	check_last_column(char **map, t_game *game, int y)
+void	check_last_column(char **map, int y)
 {
 	int	x;
 
@@ -53,12 +65,12 @@ void	check_last_column(char **map, t_game *game, int y)
 			continue ;
 		}
 		if (map[y][x] != '1')
-			error_msg("erro ultima coluna", game);
+			error_msg("erro ultima coluna");
 		break ;
 	}
 }
 
-void	check_middle_line(char **map, t_game *game)
+void	check_middle_line(char **map)
 {
 	int	x;
 	int	y;
@@ -66,15 +78,15 @@ void	check_middle_line(char **map, t_game *game)
 	y = 0;
 	while (map[y])
 	{
-		check_first_column(map, game, y);
-		check_last_column(map, game, y);
+		check_first_column(map, y);
+		check_last_column(map, y);
 		y++;
 	}
 }
 
-void	check_map(t_game *game)
+void	check_map(void)
 {
-	check_first_last_line(game->map, game);
-	check_middle_line(game->map, game);
-	floodfill(game->map_checker, game);
+	check_first_last_line(game()->map);
+	check_middle_line(game()->map);
+	floodfill(game()->map_checker);
 }

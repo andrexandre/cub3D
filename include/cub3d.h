@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
+/*   Updated: 2024/01/31 20:52:27 by jealves-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -15,6 +27,12 @@
 # include <time.h>
 # include <unistd.h>
 
+typedef struct s_coord
+{
+	double		x;
+	double		y;
+}				t_coord;
+
 typedef struct s_file
 {
 	t_list		*map_lst;
@@ -25,6 +43,13 @@ typedef struct s_file
 	char		*color_floor;
 	char		*color_ceiling;
 }				t_file;
+
+typedef struct s_player
+{
+	t_coord		*pos;
+	t_coord		*dir;
+	t_coord		*plane;
+}				t_player;
 
 typedef struct s_buffer
 {
@@ -45,24 +70,28 @@ typedef struct s_game
 	t_buffer	image_buffer;
 	char		**map;
 	char		**map_checker;
+	t_player	*player;
 }				t_game;
 
 // build_structure
-void			build(char *map_path, t_game *game);
-void			build_map(char *map_path, t_game *game);
+t_game			*game(void);
+void			build(char *map_path);
+void			build_file(char *map_path);
+void			build_characters(void);
 
 // msg
-void			error_msg(char *message, t_game *game);
+void			error_msg(char *message);
 void			ft_cleanup_strs(char **strs);
 
 // checker
-void			check(t_game *game);
-void			check_map(t_game *game);
+void			check(void);
+void			check_map(void);
 void			check_map_extension(char *map_path);
-void			floodfill(char **map, t_game *game);
+void			floodfill(char **map);
 
 // util
 char			**convert_lst_to_char(t_list *lst);
-bool			vaild_map_char(char c);
+bool			is_map_char(char c);
+t_coord			*build_coord(double y, double x);
 
 #endif
