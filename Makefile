@@ -33,7 +33,9 @@ SRC =		cub3d.c\
 			utils/msg.c\
 			utils/clean.c\
 			utils/utils.c\
-			checker/check_map.c
+			checker/check.c\
+			checker/check_map.c\
+			checker/floodfill.c\
 			
 SRC		:= $(addprefix srcs/,$(SRC))
 

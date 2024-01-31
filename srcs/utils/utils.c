@@ -2,9 +2,9 @@
 
 char	**convert_lst_to_char(t_list *lst)
 {
-    char **str;
-    int i;
-    
+	char	**str;
+	int		i;
+
 	i = 0;
 	str = ft_calloc(ft_lstsize(lst) + 1, sizeof(char *));
 	if (!str)
@@ -17,5 +17,12 @@ char	**convert_lst_to_char(t_list *lst)
 		i++;
 		lst = lst->next;
 	}
-    return str;
+	return (str);
+}
+
+bool	vaild_map_char(char c)
+{
+	if (c != ' ' && c != '\n')
+		return (true);
+	return (false);
 }

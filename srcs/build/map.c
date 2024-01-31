@@ -1,4 +1,3 @@
-
 #include "cub3d.h"
 
 bool	is_map(char *line)
@@ -28,13 +27,13 @@ void	read_elements(char *line, t_game *game)
 	idxn = ft_strlen(result);
 	result[idxn - 1] = '\0';
 	if (!ft_strcmp(sp[0], "NO"))
-		game->file->path_NO = result;
+		game->file->path_no = result;
 	else if (!ft_strcmp(sp[0], "SO"))
-		game->file->path_SO = result;
+		game->file->path_so = result;
 	else if (!ft_strcmp(sp[0], "WE"))
-		game->file->path_WE = result;
+		game->file->path_we = result;
 	else if (!ft_strcmp(sp[0], "EA"))
-		game->file->path_EA = result;
+		game->file->path_ea = result;
 	else if (!ft_strcmp(sp[0], "F"))
 		game->file->color_floor = result;
 	else if (!ft_strcmp(sp[0], "C"))
@@ -45,7 +44,7 @@ void	read_elements(char *line, t_game *game)
 void	read_map(int fd, t_game *game)
 {
 	char	*line;
-	bool map;
+	bool	map;
 
 	game->file = ft_calloc(sizeof(t_file), 1);
 	line = NULL;
@@ -73,7 +72,5 @@ void	build_map(char *map_path, t_game *game)
 	if (fd == -1)
 		error_msg("Map not found", NULL);
 	read_map(fd, game);
-	game->map = convert_lst_to_char(game->file->map_lst);
-	game->map_checker = convert_lst_to_char(game->file->map_lst);
 	close(fd);
 }

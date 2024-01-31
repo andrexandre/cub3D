@@ -1,4 +1,3 @@
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -19,10 +18,10 @@
 typedef struct s_file
 {
 	t_list		*map_lst;
-	char		*path_NO;
-	char		*path_SO;
-	char		*path_WE;
-	char		*path_EA;
+	char		*path_no;
+	char		*path_so;
+	char		*path_we;
+	char		*path_ea;
 	char		*color_floor;
 	char		*color_ceiling;
 }				t_file;
@@ -55,10 +54,15 @@ void			build_map(char *map_path, t_game *game);
 // msg
 void			error_msg(char *message, t_game *game);
 void			ft_cleanup_strs(char **strs);
-char			**convert_lst_to_char(t_list *lst);
 
 // checker
+void			check(t_game *game);
+void			check_map(t_game *game);
 void			check_map_extension(char *map_path);
-void check_map(t_game *game);
+void			floodfill(char **map, t_game *game);
+
+// util
+char			**convert_lst_to_char(t_list *lst);
+bool			vaild_map_char(char c);
 
 #endif
