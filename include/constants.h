@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msg.c                                              :+:      :+:    :+:   */
+/*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 19:31:42 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:53:03 by jealves-         ###   ########.fr       */
+/*   Created: 2024/02/01 20:36:39 by jealves-          #+#    #+#             */
+/*   Updated: 2024/02/02 21:18:24 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
 
-void	error_msg(char *message)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd("\n", 2);
-	// end_game(gm);
-	exit(EXIT_FAILURE);
-}
+# define MINIMAP "minimap"
+# define MINIMAP_PX 16
 
-void	msg(const char *message)
-{
-	ft_printf("%s\n", message);
-}
+# define LETTER_KEY_LEFT 97
+# define LETTER_KEY_RIGHT 100
+# define LETTER_KEY_UP 119
+# define LETTER_KEY_DOWN 115
+# define ARROW_KEY_LEFT 65361
+# define ARROW_KEY_RIGHT 65363
+# define ARROW_KEY_UP 65362
+# define ARROW_KEY_DOWN 65364
+# define KEY_ESC 65307
+
+#endif

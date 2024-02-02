@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:51 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 18:59:36 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:02:31 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_game	*gm(void)
 int	cub3d(char *map_path)
 {
 	build(map_path);
+	hook();
 	return (1);
 }
 #define mapWidth 8
@@ -39,7 +40,7 @@ char worldMap[mapWidth][mapHeight] =
   {'1','0','0','0','0','0','1', 0},
   {'1','1','1','1','1','1','1', 0}
 };
-int quit(void)
+/*int quit(void)
 {
 	// (void)game;
 	mlx_destroy_image(gm()->mlx, gm()->image_buffer.img);
@@ -47,11 +48,11 @@ int quit(void)
 	mlx_destroy_display(gm()->mlx);
 	free(gm()->mlx);
 	exit(0);
-}
-// int	main(int ac, char **av)
-int	main(void)
+}*/
+ int	main(int ac, char **av)
+//int	main(void)
 {
-	int	width;
+	/*int	width;
 	int	height;
 	width = 500;
 	height = 500;
@@ -80,9 +81,9 @@ int	main(void)
 	// }
 	mlx_hook(gm()->win, 17, 0, quit, &gm);
 	mlx_loop(gm()->mlx);
-	return (0);
-	// if (ac == 2)
-	// 	return (cub3d(av[1]));
-	// else
-	// 	error_msg("Invalid Number of Arguments");
+	return (0);*/
+	if (ac == 2)
+	 	return (cub3d(av[1]));
+	else
+		error_msg("Invalid Number of Arguments");
 }

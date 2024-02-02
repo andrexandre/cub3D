@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:03 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:51:35 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ bool	is_map(char *line)
 	return (true);
 }
 
+char	*put_elements(char *result, char *cur)
+{
+	if (cur)
+		error_msg("More than one texture/color");
+	return (result);
+}
+
 void	read_elements(char *line)
 {
 	char	*result;
@@ -39,17 +46,17 @@ void	read_elements(char *line)
 	idxn = ft_strlen(result);
 	result[idxn - 1] = '\0';
 	if (!ft_strcmp(sp[0], "NO"))
-		gm()->file->path_no = result;
+		(gm()->file->path_no) = put_elements(result, gm()->file->path_no);
 	else if (!ft_strcmp(sp[0], "SO"))
-		gm()->file->path_so = result;
+		(gm()->file->path_so) = put_elements(result, gm()->file->path_so);
 	else if (!ft_strcmp(sp[0], "WE"))
-		gm()->file->path_we = result;
+		(gm()->file->path_we) = put_elements(result, gm()->file->path_we);
 	else if (!ft_strcmp(sp[0], "EA"))
-		gm()->file->path_ea = result;
+		(gm()->file->path_ea) = put_elements(result, gm()->file->path_ea);
 	else if (!ft_strcmp(sp[0], "F"))
-		gm()->file->color_floor = result;
+		(gm()->file->color_f) = put_elements(result, gm()->file->color_f);
 	else if (!ft_strcmp(sp[0], "C"))
-		gm()->file->color_ceiling = result;
+		(gm()->file->color_c) = put_elements(result, gm()->file->color_c);
 	ft_cleanup_strs(sp);
 }
 
@@ -60,6 +67,7 @@ void	read_file(int fd)
 
 	gm()->file = ft_calloc(sizeof(t_file), 1);
 	line = NULL;
+	map = false;
 	while (1)
 	{
 		line = get_next_line(fd);
