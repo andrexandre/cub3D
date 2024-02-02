@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 20:52:27 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 18:56:22 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_buffer
 typedef struct s_game
 {
 	void		*mlx;
-	void		*window;
+	void		*win;
 	t_file		*file;
 	t_buffer	image_buffer;
 	char		**map;
@@ -74,7 +74,7 @@ typedef struct s_game
 }				t_game;
 
 // build_structure
-t_game			*game(void);
+t_game			*gm(void);
 void			build(char *map_path);
 void			build_file(char *map_path);
 void			build_characters(void);

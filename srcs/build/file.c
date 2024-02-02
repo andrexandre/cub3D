@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:03 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 19:31:04 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,17 @@ void	read_elements(char *line)
 	idxn = ft_strlen(result);
 	result[idxn - 1] = '\0';
 	if (!ft_strcmp(sp[0], "NO"))
-		game()->file->path_no = result;
+		gm()->file->path_no = result;
 	else if (!ft_strcmp(sp[0], "SO"))
-		game()->file->path_so = result;
+		gm()->file->path_so = result;
 	else if (!ft_strcmp(sp[0], "WE"))
-		game()->file->path_we = result;
+		gm()->file->path_we = result;
 	else if (!ft_strcmp(sp[0], "EA"))
-		game()->file->path_ea = result;
+		gm()->file->path_ea = result;
 	else if (!ft_strcmp(sp[0], "F"))
-		game()->file->color_floor = result;
+		gm()->file->color_floor = result;
 	else if (!ft_strcmp(sp[0], "C"))
-		game()->file->color_ceiling = result;
+		gm()->file->color_ceiling = result;
 	ft_cleanup_strs(sp);
 }
 
@@ -58,7 +58,7 @@ void	read_file(int fd)
 	char	*line;
 	bool	map;
 
-	game()->file = ft_calloc(sizeof(t_file), 1);
+	gm()->file = ft_calloc(sizeof(t_file), 1);
 	line = NULL;
 	while (1)
 	{
@@ -67,7 +67,7 @@ void	read_file(int fd)
 			break ;
 		if (is_map(line) || map)
 		{
-			ft_lstadd_back(&game()->file->map_lst, ft_lstnew(line));
+			ft_lstadd_back(&gm()->file->map_lst, ft_lstnew(line));
 			map = true;
 		}
 		else
@@ -85,8 +85,8 @@ void	build_file(char *map_path)
 		error_msg("File not found");
 	read_file(fd);
 	close(fd);
-	if (!game()->file->map_lst)
+	if (!gm()->file->map_lst)
 		error_msg("Cannot read map");
-	game()->map = convert_lst_to_char(game()->file->map_lst);
-	game()->map_checker = convert_lst_to_char(game()->file->map_lst);
+	gm()->map = convert_lst_to_char(gm()->file->map_lst);
+	gm()->map_checker = convert_lst_to_char(gm()->file->map_lst);
 }
