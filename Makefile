@@ -74,7 +74,7 @@ run: ${NAME}
 	@clear
 	@./${NAME}
 
-VALG	= valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes# --trace-children=yes
+VALG	= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes# --trace-children=yes
 
 v: ${NAME}
 	@${VALG} ./${NAME}

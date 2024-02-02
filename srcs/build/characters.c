@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   characters.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:30:46 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 21:10:32 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	build_characters(void)
 	int	y;
 
 	y = 0;
-	while (game()->map[y])
+	while (gm()->map[y])
 	{
 		x = 0;
-		while (game()->map[y][x])
+		while (gm()->map[y][x])
 		{
-			if (game()->map[y][x] == 'N' || game()->map[y][x] == 'S'
-				|| game()->map[y][x] == 'E' || game()->map[y][x] == 'W')
-				build_player(&game()->player, x, y, game()->map[y][x]);
+			if (gm()->map[y][x] == 'N' || gm()->map[y][x] == 'S'
+				|| gm()->map[y][x] == 'E' || gm()->map[y][x] == 'W')
+				build_player(&gm()->player, x, y, gm()->map[y][x]);
 			x++;
 		}
 		y++;

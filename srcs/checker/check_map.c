@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:17 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 19:31:18 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	check_middle_line(char **map)
 
 void	check_map(void)
 {
-	check_first_last_line(game()->map);
-	check_middle_line(game()->map);
-	floodfill(game()->map_checker);
+	check_first_last_line(gm()->map);
+	check_middle_line(gm()->map);
+	floodfill(gm()->map_checker);
 }
