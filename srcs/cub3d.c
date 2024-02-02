@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:51 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:58:22 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:02:31 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char worldMap[mapWidth][mapHeight] =
   {'1','0','0','0','0','0','1', 0},
   {'1','1','1','1','1','1','1', 0}
 };
-int quit(void)
+/*int quit(void)
 {
 	// (void)game;
 	mlx_destroy_image(gm()->mlx, gm()->image_buffer.img);
@@ -48,7 +48,7 @@ int quit(void)
 	mlx_destroy_display(gm()->mlx);
 	free(gm()->mlx);
 	exit(0);
-}
+}*/
  int	main(int ac, char **av)
 //int	main(void)
 {

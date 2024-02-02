@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:54:40 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:55:00 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 22:01:54 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,20 @@ int	keypress(int keycode, t_game *game)
 	}
 	return (0);
 }
+int quit(void)
+{
+	// (void)game;
+	mlx_destroy_image(gm()->mlx, gm()->image_buffer.img);
+	mlx_destroy_window(gm()->mlx, gm()->win);
+	mlx_destroy_display(gm()->mlx);
+	free(gm()->mlx);
+	exit(0);
+}
 
 void	hook(void)
 {
 	mlx_hook(gm()->win, KeyPress, KeyPressMask, keypress, gm());
+	mlx_hook(gm()->win, 17, 0, quit, &gm);
 	//mlx_hook(gm()->window, 17, 0, closing_game, gm());
 	mlx_loop_hook(gm()->mlx, loop, gm());
 	mlx_loop(gm()->mlx);
