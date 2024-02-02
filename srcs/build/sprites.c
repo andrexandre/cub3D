@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 20:12:06 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:41:12 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:53:37 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	*path_sprite(char *sprite_path, char *sprite_name)
 
 static void	load_sprite(char *path, t_buffer *target)
 {
-	target->img = mlx_xpm_file_to_image(game()->mlx, path, &target->width,
+	target->img = mlx_xpm_file_to_image(gm()->mlx, path, &target->width,
 			&target->height);
 	if (!target->img)
 		error_msg("Corrupted Sprite");
@@ -55,7 +55,7 @@ static void	create_sprites(char *sprite_path, char *sprite_name,
 
 void	build_sprites(void)
 {
-	game()->sprites = ft_calloc(sizeof(t_sprites), 1);
-	create_sprites(MINIMAP, "wall", &game()->sprites->minimap_wall);
-	create_sprites(MINIMAP, "floor", &game()->sprites->minimap_floor);
+	gm()->sprites = ft_calloc(sizeof(t_sprites), 1);
+	create_sprites(MINIMAP, "wall", &gm()->sprites->minimap_wall);
+	create_sprites(MINIMAP, "floor", &gm()->sprites->minimap_floor);
 }

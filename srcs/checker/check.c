@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:26 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:38:04 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:58:44 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	check_file(t_file *file)
 
 void	check(void)
 {
-	check_file(game()->file);
+	check_file(gm()->file);
 	check_map();
-	if (game()->nbr_player != 1)
+	if (gm()->nbr_player != 1)
 		error_msg("Invalid number of players");
 }

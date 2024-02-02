@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:54:40 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:37:38 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:55:00 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	loop(t_game *game)
 {
 	draw_background(game);
-	mlx_put_image_to_window(game->mlx, game->window, game->image_buffer.img, 0,
+	mlx_put_image_to_window(game->mlx, game->win, game->image_buffer.img, 0,
 		0);
 	return (EXIT_SUCCESS);
 }
@@ -33,8 +33,8 @@ int	keypress(int keycode, t_game *game)
 
 void	hook(void)
 {
-	mlx_hook(game()->window, KeyPress, KeyPressMask, keypress, game());
-	//mlx_hook(game()->window, 17, 0, closing_game, game());
-	mlx_loop_hook(game()->mlx, loop, game());
-	mlx_loop(game()->mlx);
+	mlx_hook(gm()->win, KeyPress, KeyPressMask, keypress, gm());
+	//mlx_hook(gm()->window, 17, 0, closing_game, gm());
+	mlx_loop_hook(gm()->mlx, loop, gm());
+	mlx_loop(gm()->mlx);
 }
