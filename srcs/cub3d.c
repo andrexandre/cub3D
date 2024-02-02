@@ -6,7 +6,7 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:51 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 19:31:55 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/01 20:25:37 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_game	*game(void)
 int	cub3d(char *map_path)
 {
 	build(map_path);
+	hook();
 	return (1);
 }
 

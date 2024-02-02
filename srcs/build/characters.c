@@ -6,37 +6,37 @@
 /*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:30:46 by jealves-          #+#    #+#             */
-/*   Updated: 2024/01/31 21:10:32 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:38:19 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	build_player(t_player **player, int x, int y, char c)
+void	build_player(int x, int y, char c)
 {
-	*player = ft_calloc(sizeof(t_player), 1);
-	if (!*player)
+	game()->player = ft_calloc(sizeof(t_player), 1);
+	if (!game()->player)
 		error_msg("Memory allocation - player");
-	(*player)->pos = build_coord((double)y, (double)x);
+	(game()->player->pos) = build_coord((double)y, (double)x);
 	if (c == 'N')
 	{
-		(*player)->dir = build_coord((double)-1, (double)0);
-		(*player)->plane = build_coord((double)0, (double)0.66);
+		(game()->player->dir) = build_coord((double)-1, (double)0);
+		(game()->player->plane) = build_coord((double)0, (double)0.66);
 	}
 	else if (c == 'S')
 	{
-		(*player)->dir = build_coord((double)1, (double)0);
-		(*player)->plane = build_coord((double)0, (double)-0.66);
+		(game()->player->dir) = build_coord((double)1, (double)0);
+		(game()->player->plane) = build_coord((double)0, (double)-0.66);
 	}
 	else if (c == 'E')
 	{
-		(*player)->dir = build_coord((double)0, (double)1);
-		(*player)->plane = build_coord((double)0.66, (double)0);
+		(game()->player->dir) = build_coord((double)0, (double)1);
+		(game()->player->plane) = build_coord((double)0.66, (double)0);
 	}
 	else if (c == 'W')
 	{
-		(*player)->dir = build_coord((double)0, (double)-1);
-		(*player)->plane = build_coord((double)-0.66, (double)0);
+		(game()->player->dir) = build_coord((double)0, (double)-1);
+		(game()->player->plane) = build_coord((double)-0.66, (double)0);
 	}
 }
 
@@ -53,7 +53,10 @@ void	build_characters(void)
 		{
 			if (game()->map[y][x] == 'N' || game()->map[y][x] == 'S'
 				|| game()->map[y][x] == 'E' || game()->map[y][x] == 'W')
-				build_player(&game()->player, x, y, game()->map[y][x]);
+			{
+				build_player(x, y, game()->map[y][x]);
+				game()->nbr_player++;
+			}
 			x++;
 		}
 		y++;
