@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:26 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:58:44 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	check_file(t_file *file)
 		error_msg("Without WE texture");
 	if (!file->path_ea || !ft_strlen(file->path_ea))
 		error_msg("Without EA texture");
-	if (!file->color_ceiling || !ft_strlen(file->color_ceiling))
+	if (!file->color_c || !ft_strlen(file->color_c))
 		error_msg("Without ceiling color");
-	if (!file->color_floor || !ft_strlen(file->color_floor))
+	if (!file->color_f || !ft_strlen(file->color_f))
 		error_msg("Without floor color");
 }
 
@@ -45,4 +45,6 @@ void	check(void)
 {
 	check_file(gm()->file);
 	check_map();
+	if (gm()->nbr_player != 1)
+		error_msg("Invalid number of players");
 }

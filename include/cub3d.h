@@ -6,13 +6,14 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:10:43 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:16:13 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "constants.h"
 # include "libft.h"
 # include "mlx.h"
 # include <X11/X.h>
@@ -49,8 +50,8 @@ typedef struct s_file
 	char		*path_so;
 	char		*path_we;
 	char		*path_ea;
-	char		*color_floor;
-	char		*color_ceiling;
+	char		*color_f;
+	char		*color_c;
 }				t_file;
 
 typedef struct s_player
@@ -71,6 +72,12 @@ typedef struct s_buffer
 	int			height;
 }				t_buffer;
 
+typedef struct s_sprites
+{
+	t_buffer	minimap_wall;
+	t_buffer	minimap_floor;
+}				t_sprites;
+
 typedef struct s_game
 {
 	void		*mlx;
@@ -82,17 +89,24 @@ typedef struct s_game
 	char		**map;
 	char		**map_checker;
 	t_player	*player;
+	int			nbr_player;
+	t_sprites	*sprites;
 }				t_game;
+
+//hook
+int				quit(void);
 
 // build_structure
 t_game			*gm(void);
 void			build(char *map_path);
 void			build_file(char *map_path);
 void			build_characters(void);
+void			build_sprites(void);
 
 // msg
 void			error_msg(char *message);
 void			ft_cleanup_strs(char **strs);
+void			msg(const char *message);
 
 // checker
 void			check(void);
@@ -104,5 +118,13 @@ void			floodfill(char **map);
 char			**convert_lst_to_char(t_list *lst);
 bool			is_map_char(char c);
 t_coord			*build_coord(double y, double x);
+
+// action
+void			hook(void);
+
+// draw
+void			draw_background(t_game *game);
+void			draw(int x, int y, t_buffer *sprite, t_game *game);
+void			put_pixel(t_buffer *img, int x, int y, int color);
 
 #endif

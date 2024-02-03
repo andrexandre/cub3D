@@ -31,13 +31,17 @@ SRC =		cub3d.c\
 			build/game.c\
 			build/characters.c\
 			build/file.c\
+			build/sprites.c\
 			utils/msg.c\
 			utils/clean.c\
 			utils/utils.c\
 			checker/check.c\
 			checker/check_map.c\
 			checker/floodfill.c\
-			
+			action/hook.c\
+			draw/draw_minimap.c\
+			draw/draw_pixels.c\
+
 SRC		:= $(addprefix srcs/,$(SRC))
 
 OBJ		= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   characters.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:30:46 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 17:57:07 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/02 21:59:24 by jealves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	build_characters(void)
 		{
 			if (gm()->map[y][x] == 'N' || gm()->map[y][x] == 'S'
 				|| gm()->map[y][x] == 'E' || gm()->map[y][x] == 'W')
+			{
 				build_player(&gm()->player, x, y, gm()->map[y][x]);
+				gm()->nbr_player++;	
+			}
 			x++;
 		}
 		y++;

@@ -6,7 +6,7 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:51 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:10:13 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:15:34 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_game	*gm(void)
 int	cub3d(char *map_path)
 {
 	build(map_path);
+	hook();
 	return (1);
 }
 
@@ -147,14 +148,6 @@ char worldMap[mapWidth][mapHeight] =
   {'1','1','1','1','1','1','1', 0}
 };
 
-int quit(void)
-{
-	mlx_destroy_image(gm()->mlx, gm()->image_b.img);
-	mlx_destroy_window(gm()->mlx, gm()->win);
-	mlx_destroy_display(gm()->mlx);
-	free(gm()->mlx);
-	exit(0);
-}
 int	key_hook(int keycode)
 {
 	int step = 10;
@@ -198,7 +191,7 @@ int	main(void)
 	mlx_loop(gm()->mlx);
 	return (0);
 	// if (ac == 2)
-	// 	return (cub3d(av[1]));
+	//  	return (cub3d(av[1]));
 	// else
 	// 	error_msg("Invalid Number of Arguments");
 }
