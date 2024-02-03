@@ -6,7 +6,7 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 18:56:22 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/03 19:10:43 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
-# include <unistd.h>
+
+# define W_KEY 119
+# define A_KEY 97
+# define S_KEY 115
+# define D_KEY 100
+# define UP_KEY 65362
+# define LEFT_KEY 65361
+# define DOWN_KEY 65364
+# define RIGHT_KEY 65363
+# define ESC_KEY 65307
 
 typedef struct s_coord
 {
@@ -66,8 +75,10 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	t_coord		win_size;
+	t_coord		pos;
 	t_file		*file;
-	t_buffer	image_buffer;
+	t_buffer	image_b;
 	char		**map;
 	char		**map_checker;
 	t_player	*player;
