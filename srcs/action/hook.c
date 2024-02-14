@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrealex <andrealex@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:54:40 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:14:42 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:23:27 by andrealex        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	keypress(int keycode, t_game *game)
 	}
 	return (0);
 }
+
 int quit(void)
 {
-	// (void)game;
 	mlx_destroy_image(gm()->mlx, gm()->image_b.img);
 	mlx_destroy_window(gm()->mlx, gm()->win);
 	mlx_destroy_display(gm()->mlx);

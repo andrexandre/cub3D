@@ -14,7 +14,7 @@ INCLUDES_MLX = -I/usr/include -Imlx
 
 # Link X11 and MLX
 MLX_DIR = ./mlx
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
 
 OPTFLAGS    =  -march=native -ffast-math -funsafe-math-optimizations -ffinite-math-only

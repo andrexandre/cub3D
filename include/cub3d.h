@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrealex <andrealex@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:16:13 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:03:11 by andrealex        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ typedef struct s_game
 	void		*win;
 	t_coord		win_size;
 	t_coord		pos;
+	float		angle;
 	t_file		*file;
 	t_buffer	image_b;
 	char		**map;
@@ -93,7 +94,7 @@ typedef struct s_game
 	t_sprites	*sprites;
 }				t_game;
 
-//hook
+// hook
 int				quit(void);
 
 // build_structure

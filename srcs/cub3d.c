@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrealex <andrealex@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:51 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:15:34 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/14 20:01:18 by andrealex        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,15 +162,21 @@ int	key_hook(int keycode)
 		while (++x < screenWidth / blockSize)
 			put_square(&gm()->image_b, x * blockSize, y * blockSize, x * blockSize + blockSize - 1, y * blockSize + blockSize - 1, 1, argb(0, 64, 64, 64));
 	}
-	if (keycode == UP_KEY || keycode == W_KEY)
+	if (keycode == W_KEY)
 		gm()->pos.y -= step;
-	else if (keycode == LEFT_KEY || keycode == A_KEY)
+	else if (keycode == A_KEY)
 		gm()->pos.x -= step;
-	else if (keycode == RIGHT_KEY || keycode == D_KEY)
+	else if (keycode == D_KEY)
 		gm()->pos.x += step;
-	else if (keycode == DOWN_KEY || keycode == S_KEY)
+	else if (keycode == S_KEY)
 		gm()->pos.y += step;
-	put_line(&gm()->image_b, gm()->pos.x + blockSize / 4, gm()->pos.y, gm()->pos.x + blockSize / 4, gm()->pos.y - blockSize, 255);
+	else if (keycode == LEFT_KEY)
+		gm()->angle -= 0.1;
+	else if (keycode == RIGHT_KEY)
+		gm()->angle += 0.1;
+	float xx = 40 * cos(gm()->angle);
+	float yy = 40 * sin(gm()->angle);
+	put_line(&gm()->image_b, gm()->pos.x + blockSize / 4, gm()->pos.y + blockSize / 4, gm()->pos.x + xx + blockSize / 4, gm()->pos.y + yy + blockSize / 4, 0x004895EF);
 	put_square(&gm()->image_b, gm()->pos.x, gm()->pos.y, gm()->pos.x + 20 - 1, gm()->pos.y + 20 - 1, 0, argb(0, 255, 0, 0));
 	mlx_put_image_to_window(gm()->mlx, gm()->win, gm()->image_b.img, 0, 0);
 	return (0);
@@ -178,6 +184,7 @@ int	key_hook(int keycode)
 // int	main(int ac, char **av)
 int	main(void)
 {
+	gm()->angle = -M_PI / 2;
 	gm()->win_size.x = screenWidth;
 	gm()->win_size.y = screenHeight;
 	gm()->pos.x = screenWidth / 2 - blockSize / 4;
