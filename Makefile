@@ -3,10 +3,10 @@ RED		= \033[1;31m
 GREEN	= \033[1;32m
 YELLOW	= \033[1;33m
 BLUE	= \033[1;34m
-CYAN 	= \033[1;36m
+CYAN	= \033[1;36m
 
 RM		= rm -f
-NAME = cub3d
+NAME	= cub3D
 INCLUDES = include
 
 # Contains the X11 and MLX header files
@@ -28,6 +28,8 @@ SRCDIR	= srcs
 OBJDIR	= objs
 
 SRC =		cub3d.c\
+			mlx_utils.c\
+			raycast.c\
 			build/game.c\
 			build/characters.c\
 			build/file.c\

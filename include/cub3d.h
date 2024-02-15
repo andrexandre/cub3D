@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrealex <andrealex@student.42.fr>        +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/14 20:03:11 by andrealex        ###   ########.fr       */
+/*   Updated: 2024/02/15 16:17:21 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
-
-# define W_KEY 119
-# define A_KEY 97
-# define S_KEY 115
-# define D_KEY 100
-# define UP_KEY 65362
-# define LEFT_KEY 65361
-# define DOWN_KEY 65364
-# define RIGHT_KEY 65363
-# define ESC_KEY 65307
 
 typedef struct s_coord
 {
@@ -127,5 +117,15 @@ void			hook(void);
 void			draw_background(t_game *game);
 void			draw(int x, int y, t_buffer *sprite, t_game *game);
 void			put_pixel(t_buffer *img, int x, int y, int color);
+
+
+/* FUNCTIONS */
+int		argb(double a, int r, int g, int b);
+void	put_line(t_buffer *image, int x1, int y1, int x2, int y2, int color);
+void	put_square(t_buffer *image, int x1, int y1, int x2, int y2, 
+		int just_perimeter, int color);
+void	create_image(int width, int height, int color, t_buffer *image);
+int		key_hook(int keycode);
+void	cub3d_init(void);
 
 #endif

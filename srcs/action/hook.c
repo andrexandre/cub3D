@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrealex <andrealex@student.42.fr>        +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 19:54:40 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/14 20:23:27 by andrealex        ###   ########.fr       */
+/*   Updated: 2024/02/15 16:56:18 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,14 @@ int	loop(t_game *game)
 
 int	keypress(int keycode, t_game *game)
 {
-	if (keycode == KEY_ESC)
-	{
-		msg("Fim");
-		//end_game(game);
-		exit(EXIT_SUCCESS);
-	}
+	if (keycode == ESC_KEY)
+		return (quit());
 	return (0);
 }
 
 int quit(void)
 {
+	prt("Fim\n");
 	mlx_destroy_image(gm()->mlx, gm()->image_b.img);
 	mlx_destroy_window(gm()->mlx, gm()->win);
 	mlx_destroy_display(gm()->mlx);
@@ -42,7 +39,7 @@ int quit(void)
 
 void	hook(void)
 {
-	mlx_hook(gm()->win, KeyPress, KeyPressMask, keypress, gm());
+	mlx_hook(gm()->win, KeyPress, KeyPressMask, keypress, NULL);
 	mlx_hook(gm()->win, 17, 0, quit, &gm);
 	//mlx_hook(gm()->window, 17, 0, closing_game, gm());
 	mlx_loop_hook(gm()->mlx, loop, gm());
