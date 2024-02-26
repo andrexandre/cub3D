@@ -1,7 +1,6 @@
 cub3D
 *.o
 mlx
-tester.sh
 assets
 invalid_maps
 cub3D_invalid_map_tester
