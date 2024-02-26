@@ -3,83 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jealves- <jealves-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:03 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/02 21:51:35 by jealves-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:05:25 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	is_map(char *line)
+char	*elem(char *result, char *cur, int fd, char **sp, char *line)
 {
-	int	i;
+	int	size;
 
-	i = 0;
-	while (line[i])
-	{
-		if (!ft_strchr("01NSEW\t\n ", line[i]) || (i == 0 && line[i] == '\n'))
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
-char	*put_elements(char *result, char *cur)
-{
 	if (cur)
+	{
+		close(fd);
+		free(line);
+		ft_cleanup_strs(sp);
 		error_msg("More than one texture/color");
-	return (result);
+	}
+	size = ft_strlen(result) - 1;
+	if (result[size] == '\n')
+		result[size] = '\0';
+	return (ft_strdup(result));
 }
 
-void	read_elements(char *line)
+// NEEDS FIXIN
+void	read_elements(char *line, int fd)
 {
-	char	*result;
 	char	**sp;
 	size_t	i;
 	size_t	idxn;
 
 	sp = ft_split(line, ' ');
 	i = ft_strlen_matrix(sp);
-	result = ft_strdup(sp[i - 1]);
-	idxn = ft_strlen(result);
-	result[idxn - 1] = '\0';
+	idxn = ft_strlen(sp[i - 1]);
+	sp[i - 1][idxn - 1] = '\0';
 	if (!ft_strcmp(sp[0], "NO"))
-		(gm()->file->path_no) = put_elements(result, gm()->file->path_no);
+		(gm()->file->path_no) = elem(sp[i - 1], gm()->file->path_no, fd, sp, line);
 	else if (!ft_strcmp(sp[0], "SO"))
-		(gm()->file->path_so) = put_elements(result, gm()->file->path_so);
+		(gm()->file->path_so) = elem(sp[i - 1], gm()->file->path_so, fd, sp, line);
 	else if (!ft_strcmp(sp[0], "WE"))
-		(gm()->file->path_we) = put_elements(result, gm()->file->path_we);
+		(gm()->file->path_we) = elem(sp[i - 1], gm()->file->path_we, fd, sp, line);
 	else if (!ft_strcmp(sp[0], "EA"))
-		(gm()->file->path_ea) = put_elements(result, gm()->file->path_ea);
+		(gm()->file->path_ea) = elem(sp[i - 1], gm()->file->path_ea, fd, sp, line);
 	else if (!ft_strcmp(sp[0], "F"))
-		(gm()->file->color_f) = put_elements(result, gm()->file->color_f);
+		(gm()->file->color_f) = elem(line + 2, gm()->file->color_f, fd, sp, line);
 	else if (!ft_strcmp(sp[0], "C"))
-		(gm()->file->color_c) = put_elements(result, gm()->file->color_c);
+		(gm()->file->color_c) = elem(line + 2, gm()->file->color_c, fd, sp, line);
 	ft_cleanup_strs(sp);
+	if (i != 2 && line[0] != '\n' && line[0] != 'F' && line[0] != 'C')
+		return (close(fd), free(line), error_msg("Invalid texture"));
+}
+
+void	read_get_next_line(char *line, bool *map, bool *nl, int fd)
+{
+	if ((is_map(line) || *map))
+	{
+		if (ft_strcmp(line, "\n") && (!is_map(line) || *nl))
+		{
+			close(fd);
+			free(line);
+			error_msg("Invalid structure map");
+		}
+		if (ft_strcmp(line, "\n") == 0)
+			*nl = true;
+		else
+			ft_lstadd_back(&gm()->file->map_lst, ft_lstnew(ft_strdup(line)));
+		*map = true;
+	}
+	else
+		read_elements(line, fd);
 }
 
 void	read_file(int fd)
 {
-	char	*line;
 	bool	map;
+	bool	nl;
+	char	*line;
 
-	gm()->file = ft_calloc(sizeof(t_file), 1);
+	(gm()->file) = ft_calloc(sizeof(t_file), 1);
+	if (!gm()->file)
+		error_msg("Memory allocation - file");
 	line = NULL;
 	map = false;
+	nl = false;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (is_map(line) || map)
-		{
-			ft_lstadd_back(&gm()->file->map_lst, ft_lstnew(line));
-			map = true;
-		}
-		else
-			read_elements(line);
+		ft_lstadd_back(&gm()->file->gnl, ft_lstnew(line));
+		read_get_next_line(line, &map, &nl, fd);
+		free(line);
 	}
 }
 

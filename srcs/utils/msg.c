@@ -6,7 +6,7 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 19:31:42 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/03 19:16:46 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:25:52 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 void	error_msg(char *message)
 {
-	dprt(2, "Error: %s\n", message);
-	// end_game(gm);
+	dprt(2, "\033[1;31mError\n%s\033[0m\n", message);
+	free_game(gm());
 	exit(EXIT_FAILURE);
-}
-
-void	msg(const char *message)
-{
-	prt("%s\n", message);
 }

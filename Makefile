@@ -22,27 +22,33 @@ OPTFLAGS    =  -march=native -ffast-math -funsafe-math-optimizations -ffinite-ma
 DIR_LIBFT = srcs/libft
 INCLUDE_LIB = $(DIR_LIBFT)/include
 LIB = $(DIR_LIBFT)/libft.a
-CFLAGS = -I$(INCLUDES) -I$(INCLUDE_LIB) -I $(MLX_DIR) -g #-Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -I$(INCLUDES) -I$(INCLUDE_LIB) -I $(MLX_DIR) -g -Wall -Wextra -Werror #-fsanitize=address
 
 SRCDIR	= srcs
 OBJDIR	= objs
 
 SRC =		cub3d.c\
-			mlx_utils.c\
-			raycast.c\
 			build/game.c\
 			build/characters.c\
 			build/file.c\
-			build/sprites.c\
+			build/scene.c\
+			build/door.c\
 			utils/msg.c\
 			utils/clean.c\
 			utils/utils.c\
+			utils/free_game.c\
 			checker/check.c\
 			checker/check_map.c\
 			checker/floodfill.c\
 			action/hook.c\
+			action/direction.c\
+			action/colision.c\
+			action/mouse.c\
 			draw/draw_minimap.c\
 			draw/draw_pixels.c\
+			draw/raycast.c\
+			draw/raycast_tex.c\
+			draw/draw_player.c\
 
 SRC		:= $(addprefix srcs/,$(SRC))
 
@@ -55,7 +61,7 @@ $(LIB): | $(OBJDIR)
 
 $(NAME): $(LIB) $(OBJ)
 	@cc $(CFLAGS) $(OBJ) $(LIB) -o $(NAME) $(MLX_FLAGS)
-	@echo "\n$(BLUE)$(NAME)$(END) $(GREEN)Stuff compiled 🛠️\n$(END)"
+	@echo "\n$(BLUE)$(NAME)$(END) $(GREEN)Stuff compiled 💻\n$(END)"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c | $(OBJDIR) $(LIB)
 	@mkdir -p $(@D)
@@ -76,17 +82,22 @@ fclean:	clean
 
 re:	fclean all
 
-run: ${NAME}
+ARGS = maps/map_subject.cub
+
+run: re
 	@clear
-	@./${NAME}
+	@./${NAME} ${ARGS}
 
 VALG	= valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes# --trace-children=yes
 
-v: ${NAME}
-	@${VALG} ./${NAME}
+norm:
+	@norminette srcs include
 
-val: ${NAME}
-	@output=$$(${VALG} ./${NAME} 2>&1); \
+v: re
+	@${VALG} ./${NAME} ${ARGS}
+
+val: re
+	@output=$$(${VALG} ./${NAME} ${ARGS} 2>&1); \
 	if echo "$$output" | grep -q 'freed' && echo "$$output" | grep -q '0 errors' ; then\
 		echo -n "$(GREEN)"; echo "$$output" | grep -E 'freed|total|ERROR S|file descriptor' | sed 's/^[^ ]* //';\
 	else\

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 19:32:15 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/15 16:17:21 by analexan         ###   ########.fr       */
+/*   Created: 2024/02/21 18:51:22 by analexan          #+#    #+#             */
+/*   Updated: 2024/02/23 18:59:59 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_coord
 typedef struct s_file
 {
 	t_list		*map_lst;
+	t_list		*gnl;
 	char		*path_no;
 	char		*path_so;
 	char		*path_we;
@@ -51,6 +52,19 @@ typedef struct s_player
 	t_coord		*plane;
 }				t_player;
 
+typedef struct s_raycast
+{
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			side;
+	int			line_height;
+	t_coord		*map;
+	t_coord		*side_dist;
+	t_coord		*delta_dist;
+	t_coord		*dir;
+}				t_raycast;
+
 typedef struct s_buffer
 {
 	void		*img;
@@ -62,70 +76,127 @@ typedef struct s_buffer
 	int			height;
 }				t_buffer;
 
-typedef struct s_sprites
+typedef struct s_scene
 {
-	t_buffer	minimap_wall;
-	t_buffer	minimap_floor;
-}				t_sprites;
+	t_buffer	text_no;
+	t_buffer	text_so;
+	t_buffer	text_we;
+	t_buffer	text_ea;
+	int			color_f;
+	int			color_c;
+	t_buffer	exit[TOTAL_SPRITE_EXIT];
+}				t_scene;
+
+typedef struct s_controls
+{
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			rotate_left;
+	int			rotate_right;
+	bool		minimap_view;
+}				t_controls;
+
+typedef struct s_door
+{
+	t_coord		*pos;
+	bool		open;
+	int			img_pos;
+	int			animation;
+}				t_door;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_coord		win_size;
-	t_coord		pos;
-	float		angle;
 	t_file		*file;
-	t_buffer	image_b;
+	t_buffer	image_buffer;
 	char		**map;
 	char		**map_checker;
 	t_player	*player;
 	int			nbr_player;
-	t_sprites	*sprites;
+	int			mouse_on;
+	t_scene		*scene;
+	t_raycast	raycast;
+	t_controls	controls;
+	t_list		*doors;
 }				t_game;
 
+// cub3d
+t_game			*gm(void);
+
+/// action
+// colision
+void			check_colision(char **map, double x, double y, t_coord *pos);
+
+// direction
+void			move_right(char **map, t_player *player);
+void			move_left(char **map, t_player *player);
+void			move_front(char **map, t_player *player);
+void			move_back(char **map, t_player *player);
 // hook
 int				quit(void);
+void			hook(void);
+// mouse
+int				mouse_click(int button, int m_x, int m_y, t_game *game);
+int				mouse_move(int m_x, int m_y, t_game *game);
 
-// build_structure
-t_game			*gm(void);
-void			build(char *map_path);
+/// build
+// characters
+void			build_player(void);
+// file
 void			build_file(char *map_path);
-void			build_characters(void);
-void			build_sprites(void);
+// game
+void			build(char *map_path);
+// scene
+void			build_scene(void);
 
-// msg
-void			error_msg(char *message);
-void			ft_cleanup_strs(char **strs);
-void			msg(const char *message);
-
-// checker
-void			check(void);
+/// checker
+// check_map
 void			check_map(void);
+// check
 void			check_map_extension(char *map_path);
+void			check(void);
+// floodfill
 void			floodfill(char **map);
 
-// util
+/// draw
+// draw_minimap
+void			draw_minimap(t_game *game);
+// draw_pixels
+void			put_pixel(t_buffer *img, int x, int y, int color);
+int				get_pixel_color(t_buffer *sprite, int x, int y);
+void			draw(int x, int y, t_buffer *sprite, t_game *game);
+// draw_player
+void			rotate_left(t_player *player);
+void			rotate_right(t_player *player);
+void			event_player(t_game *game);
+// raycast_tex
+void			draw_wall(int x, int draw_start, int draw_end, t_door *door);
+void			paint_floor(int color, int x, int d_end, t_game *game);
+void			paint_ceiling(int color, int x, int d_start, t_game *game);
+// raycast
+void			raycast(t_game *game);
+
+/// utils
+// clean
+bool			is_map(char *line);
+void			clear_screen(void);
+void			ft_cleanup_strs(char **strs);
+// free_game
+void			free_game(t_game *gm);
+// msg
+void			error_msg(char *message);
+// utils
 char			**convert_lst_to_char(t_list *lst);
 bool			is_map_char(char c);
-t_coord			*build_coord(double y, double x);
+t_coord			*set_coord(double y, double x);
+int				argb(double a, int r, int g, int b);
 
-// action
-void			hook(void);
-
-// draw
-void			draw_background(t_game *game);
-void			draw(int x, int y, t_buffer *sprite, t_game *game);
-void			put_pixel(t_buffer *img, int x, int y, int color);
-
-
-/* FUNCTIONS */
-int		argb(double a, int r, int g, int b);
-void	put_line(t_buffer *image, int x1, int y1, int x2, int y2, int color);
-void	put_square(t_buffer *image, int x1, int y1, int x2, int y2, 
-		int just_perimeter, int color);
-void	create_image(int width, int height, int color, t_buffer *image);
-int		key_hook(int keycode);
-void	cub3d_init(void);
+t_door			*get_door(int y, int x);
+void			build_door(void);
+void			open_door(t_player *player);
+t_buffer		*action_door(t_door *door);
 
 #endif
