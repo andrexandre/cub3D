@@ -6,7 +6,7 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:24:12 by jealves-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:05:15 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:46:45 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,26 +87,10 @@ void	free_file_and_maps(t_game *game)
 		ft_cleanup_strs(game->map_checker);
 }
 
-// NEEDS FIXIN
-void	temp_free_lst(t_list **lst)
-{
-	t_list	*current;
-
-	while (*lst)
-	{
-		current = (*lst)->next;
-		free(*lst);
-		*lst = current;
-	}
-	*lst = NULL;
-}
-
 void	free_game(t_game *game)
 {
 	if (!game || !game->file)
 		return ;
-	if (game->file->gnl)
-		temp_free_lst(&game->file->gnl);
 	free_file_and_maps(game);
 	if (game->raycast.map)
 		free(game->raycast.map);

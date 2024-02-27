@@ -6,7 +6,7 @@
 /*   By: analexan <analexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 18:51:22 by analexan          #+#    #+#             */
-/*   Updated: 2024/02/23 18:59:59 by analexan         ###   ########.fr       */
+/*   Updated: 2024/02/27 13:47:04 by analexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_coord
 typedef struct s_file
 {
 	t_list		*map_lst;
-	t_list		*gnl;
 	char		*path_no;
 	char		*path_so;
 	char		*path_we;
@@ -114,6 +113,7 @@ typedef struct s_game
 	t_buffer	image_buffer;
 	char		**map;
 	char		**map_checker;
+	int			fd;
 	t_player	*player;
 	int			nbr_player;
 	int			mouse_on;
@@ -129,6 +129,10 @@ t_game			*gm(void);
 /// action
 // colision
 void			check_colision(char **map, double x, double y, t_coord *pos);
+t_buffer		*action_door(t_door *door);
+void			open_door(t_player *player);
+t_door			*get_door(int y, int x);
+void			build_door(void);
 
 // direction
 void			move_right(char **map, t_player *player);
@@ -190,13 +194,8 @@ void			free_game(t_game *gm);
 void			error_msg(char *message);
 // utils
 char			**convert_lst_to_char(t_list *lst);
-bool			is_map_char(char c);
+bool			is_map_char(char **map, int y, int x);
 t_coord			*set_coord(double y, double x);
 int				argb(double a, int r, int g, int b);
-
-t_door			*get_door(int y, int x);
-void			build_door(void);
-void			open_door(t_player *player);
-t_buffer		*action_door(t_door *door);
 
 #endif
